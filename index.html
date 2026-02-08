@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shekinah Sorvetes e Açaí</title>
+
+<style>
+body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f3f1ff;color:#333;}
+header{background:white;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+header img{max-width:180px;}
+.banner{background:#6a1b9a;color:white;padding:10px;text-align:center;font-weight:bold;}
+.container{max-width:960px;margin:auto;padding:15px;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.grid{grid-template-columns:1fr;}}
+
+.card{background:white;border-radius:15px;padding:15px;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.price{color:#6a1b9a;font-size:1.2em;font-weight:bold;}
+.btn{display:inline-block;margin-top:8px;background:#25D366;color:white;padding:10px 14px;border-radius:20px;text-decoration:none;border:none;cursor:pointer;}
+.btn.secondary{background:#6a1b9a}
+h2{color:#6a1b9a;border-bottom:2px solid #6a1b9a;padding-bottom:6px;}
+
+#flavorsBox,#checkout,#decisionBox{
+display:none;
+background:white;
+border-radius:15px;
+padding:15px;
+margin-top:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.flavor-item{display:block;margin:6px 0;}
+
+.cart{
+background:white;
+border-radius:15px;
+padding:15px;
+margin-top:20px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+select{
+width:100%;
+padding:8px;
+margin-top:6px;
+border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="imgs/logo.jpg" alt="Shekinah Logo">
+<h1>Shekinah Sorvetes e Açaí</h1>
+</header>
+
+<div class="banner">
+🚚 Taxa de entrega: R$ 3,00 - 🍦 Pedido mínimo: R$20,00
+</div>
+
+<div class="container">
+
+<h2>Potes de Sorvete</h2>
+<div class="grid">
+<div class="card">
+<strong>Pote 5 bolas</strong><br>
+<span class="price">R$ 25,00</span><br>
+<button class="btn" onclick="selectProduct('Pote 5 bolas',25,5)">Selecionar</button>
+</div>
+
+<div class="card">
+<strong>Pote 1 Litro (8 bolas)</strong><br>
+<span class="price">R$ 37,00</span><br>
+<button class="btn" onclick="selectProduct('Pote 1 Litro',37,8)">Selecionar</button>
+</div>
+
+<div class="card">
+<strong>Pote 2 Litros (16 bolas)</strong><br>
+<span class="price">R$ 80,00</span><br>
+<button class="btn" onclick="selectProduct('Pote 2 Litros',80,16)">Selecionar</button>
+</div>
+</div>
+
+<h2>Baldões de Açaí</h2>
+<div class="grid">
+<div class="card">
+<strong>Baldão Tropical</strong><br>
+<small>LEITE CONDENSADO, BANANA, MORANGO E UVA</small><br>
+<span class="price">R$ 49,00</span><br>
+<button class="btn" onclick="addAcai('Baldão Tropical',49)">Adicionar</button>
+</div>
+
+<div class="card">
+<strong>Baldão Dois Amores</strong><br>
+<small>CREME DE NINHO, NUTELLA, MORANGO, UVA E BANANA</small><BR>
+<span class="price">R$ 49,00</span><br>
+<button class="btn" onclick="addAcai('Baldão Dois Amores',49)">Adicionar</button>
+</div>
+</div>
+
+<h2>Copos Prontos de Açaí</h2>
+<div class="grid">
+
+<div class="card">
+<strong>Açaí Sensação</strong><br>
+<small>Creme de morango, creme de avelã e leite condensado</small>
+<select onchange="addAcaiCup(this,'Açaí Sensação')">
+<option value="">Selecione o tamanho</option>
+<option value="25">Pequeno – R$ 25,00</option>
+<option value="29">Médio – R$ 29,00</option>
+<option value="35">Grande – R$ 35,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Paçoquita</strong><br>
+<small>Creme de amendoim, leite condensado e paçoquita</small>
+<select onchange="addAcaiCup(this,'Açaí Paçoquita')">
+<option value="">Selecione o tamanho</option>
+<option value="23">Pequeno – R$ 23,00</option>
+<option value="25">Médio – R$ 25,00</option>
+<option value="31">Grande – R$ 31,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Frutas Vermelhas</strong><br>
+<small>Calda de frutas vermelhas, leite condensado e morango (fruta)</small>
+<select onchange="addAcaiCup(this,'Açaí Frutas Vermelhas')">
+<option value="">Selecione o tamanho</option>
+<option value="25">Pequeno – R$ 25,00</option>
+<option value="27">Médio – R$ 27,00</option>
+<option value="33">Grande – R$ 33,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Tropical</strong><br>
+<small>Leite condensado, morango, uva e banana</small>
+<select onchange="addAcaiCup(this,'Açaí Tropical')">
+<option value="">Selecione o tamanho</option>
+<option value="25">Pequeno – R$ 25,00</option>
+<option value="27">Médio – R$ 27,00</option>
+<option value="34">Grande – R$ 34,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Trufado de Morango</strong><br>
+<small>Leite condensado, Nutella, morango e castanha</small>
+<select onchange="addAcaiCup(this,'Açaí Trufado de Morango')">
+<option value="">Selecione o tamanho</option>
+<option value="28">Pequeno – R$ 28,00</option>
+<option value="31">Médio – R$ 31,00</option>
+<option value="37">Grande – R$ 37,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Sonho de Valsa</strong><br>
+<small>Creme de amendoim, leite condensado e Sonho de Valsa triturado</small>
+<select onchange="addAcaiCup(this,'Açaí Sonho de Valsa')">
+<option value="">Selecione o tamanho</option>
+<option value="29">Pequeno – R$ 29,00</option>
+<option value="33">Médio – R$ 33,00</option>
+<option value="39">Grande – R$ 39,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Ouro Branco</strong><br>
+<small>Nutella, leite condensado e Ouro Branco triturado</small>
+<select onchange="addAcaiCup(this,'Açaí Ouro Branco')">
+<option value="">Selecione o tamanho</option>
+<option value="29">Pequeno – R$ 29,00</option>
+<option value="33">Médio – R$ 33,00</option>
+<option value="39">Grande – R$ 39,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Ferrero Rocher</strong><br>
+<small>Creme de chocolate, Nutella, leite condensado e Ferrero Rocher</small>
+<select onchange="addAcaiCup(this,'Açaí Ferrero Rocher')">
+<option value="">Selecione o tamanho</option>
+<option value="31">Pequeno – R$ 31,00</option>
+<option value="34">Médio – R$ 34,00</option>
+<option value="40">Grande – R$ 40,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Tradicional</strong><br>
+<small>Leite condensado, leite em pó, banana e morango</small>
+<select onchange="addAcaiCup(this,'Açaí Tradicional')">
+<option value="">Selecione o tamanho</option>
+<option value="23">Pequeno – R$ 23,00</option>
+<option value="25">Médio – R$ 25,00</option>
+<option value="31">Grande – R$ 31,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Ninho com Morango</strong><br>
+<small>Creme de Ninho, calda de morango e morango (fruta)</small>
+<select onchange="addAcaiCup(this,'Açaí Ninho com Morango')">
+<option value="">Selecione o tamanho</option>
+<option value="31">Pequeno – R$ 31,00</option>
+<option value="34">Médio – R$ 34,00</option>
+<option value="40">Grande – R$ 40,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Kinder Bueno</strong><br>
+<small>Creme Kinder, leite condensado, leite em pó e Kinder Bueno</small>
+<select onchange="addAcaiCup(this,'Açaí Kinder Bueno')">
+<option value="">Selecione o tamanho</option>
+<option value="31">Pequeno – R$ 31,00</option>
+<option value="34">Médio – R$ 34,00</option>
+<option value="40">Grande – R$ 40,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Dois Amores</strong><br>
+<small>Creme de Ninho, Nutella, leite condensado e leite em pó</small>
+<select onchange="addAcaiCup(this,'Açaí Dois Amores')">
+<option value="">Selecione o tamanho</option>
+<option value="31">Pequeno – R$ 31,00</option>
+<option value="34">Médio – R$ 34,00</option>
+<option value="40">Grande – R$ 40,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Pistache</strong><br>
+<small>Creme de pistache, leite condensado e castanha</small>
+<select onchange="addAcaiCup(this,'Açaí Pistache')">
+<option value="">Selecione o tamanho</option>
+<option value="31">Pequeno – R$ 31,00</option>
+<option value="34">Médio – R$ 34,00</option>
+<option value="40">Grande – R$ 40,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Kids</strong><br>
+<small>Leite condensado, Chocoball, Disquete e creme de avelã</small>
+<select onchange="addAcaiCup(this,'Açaí Kids')">
+<option value="">Selecione o tamanho</option>
+<option value="27">Pequeno – R$ 27,00</option>
+<option value="31">Médio – R$ 31,00</option>
+<option value="35">Grande – R$ 35,00</option>
+</select>
+</div>
+
+<div class="card">
+<strong>Açaí Ovomaltine</strong><br>
+<small>Creme de Ovomaltine, leite condensado, Ovorocks e Ovomaltine em pó</small>
+<select onchange="addAcaiCup(this,'Açaí Ovomaltine')">
+<option value="">Selecione o tamanho</option>
+<option value="31">Pequeno – R$ 31,00</option>
+<option value="34">Médio – R$ 34,00</option>
+<option value="40">Grande – R$ 40,00</option>
+</select>
+</div>
+
+</div>
+
+<div id="flavorsBox">
+<h3>Escolha até <span id="limit"></span> sabores</h3>
+<div id="flavors"></div>
+<button class="btn" onclick="addToCart()">Adicionar ao carrinho</button>
+</div>
+
+<div id="decisionBox">
+<h3>Produto adicionado ✅</h3>
+<button class="btn" onclick="scrollToCart()">Ir para o carrinho</button>
+<button class="btn secondary" onclick="closeDecision()">Continuar comprando</button>
+</div>
+
+<div class="cart" id="cart">
+<h3>Carrinho</h3>
+<div id="cartItems"></div>
+<textarea id="cartNotes" placeholder="Observações (ex: tirar morango, adicionar mais leite condensado...)" 
+style="width:100%; padding:8px; margin-top:10px; border-radius:8px; border:1px solid #ccc; box-sizing:border-box; font-family:inherit;"></textarea>
+<button class="btn" onclick="openCheckout()">Finalizar Pedido</button>
+</div>
+
+<div id="checkout">
+<h3>Finalizar Pedido</h3>
+<input id="address" placeholder="Endereço completo"
+style="width:100%;padding:8px;margin-bottom:8px;box-sizing: border-box;">
+<select id="payment" onchange="checkCash(this)" style="width:100%;padding:8px;margin-bottom:8px">
+<option value="Pix">Pix</option>
+<option value="Dinheiro">Dinheiro</option>
+<option value="Cartão">Cartão</option>
+</select>
+<div id="cashChangeBox" style="display:none; margin-bottom:8px;">
+    <input id="cashAmount" type="number" placeholder="Troco para quanto?" style="width:100%;padding:8px;box-sizing: border-box;">
+</div>
+<button class="btn" onclick="sendWhats()">Enviar para WhatsApp</button>
+</div>
+
+</div>
+
+<script>
+const deliveryFee = 3;
+let currentProduct = null;
+let cart = [];
+
+const flavorsList=[
+"Nutella","Uva","Abacaxi suíço","Mamão","Menta com chocolate","Maracujá",
+"Chocolate belga","Blue ice","Flocos","Grego com frutas vermelhas",
+"Abacaxi ao vinho","Napolitano","Coco com abóbora","Ninho trufado",
+"Iogurte com maracujá","Unicórnio","Coco queimado","Maracujá trufado",
+"Cereja","Oreo","Laka","Coco branco","Café trufado","Morango",
+"Kinder ovo","Raffaello","Floresta negra","Pistache","Olho de sogra",
+"Talento","Amarena","Milho verde","Leitinho","Sensação","Ovomaltine",
+"Chocolate","Ninho com morango","Torta de limão","Cappuccino"
+];
+
+function selectProduct(name, price, limit) {
+    currentProduct = { name, price, limit };
+    document.getElementById('limit').innerText = limit;
+    const box = document.getElementById('flavors');
+    box.innerHTML = '';
+    flavorsList.forEach(f => {
+        box.innerHTML += `<label class="flavor-item">
+        <input type="checkbox" value="${f}" onchange="limitCheck(event)"> ${f}
+        </label>`;
+    });
+    
+    const fBox = document.getElementById('flavorsBox');
+    fBox.style.display = 'block';
+    fBox.scrollIntoView({ behavior: "smooth" });
+}
+
+function limitCheck(e) {
+    const checked = document.querySelectorAll('#flavors input:checked');
+    if (checked.length > currentProduct.limit) {
+        e.target.checked = false;
+        alert("Limite de sabores atingido");
+    }
+}
+
+function addToCart() {
+    const selected = [...document.querySelectorAll('#flavors input:checked')].map(i => i.value);
+    
+    if (selected.length < 1) {
+        alert("Escolha pelo menos 1 sabor");
+        return;
+    }
+
+    cart.push({ ...currentProduct, flavors: selected });
+    document.getElementById('flavorsBox').style.display = 'none';
+    updateCart();
+    openDecision();
+}
+
+function addAcai(name, price) {
+    cart.push({ name, price, flavors: ["Açaí puro"] });
+    updateCart();
+    openDecision();
+}
+
+function addAcaiCup(select, name) {
+    if (!select.value) return;
+    cart.push({ 
+        name: name + " (" + select.options[select.selectedIndex].text + ")", 
+        price: +select.value, 
+        flavors: ["Copo pronto"] 
+    });
+    select.selectedIndex = 0;
+    updateCart();
+    openDecision();
+}
+
+function openDecision() {
+    const dBox = document.getElementById('decisionBox');
+    dBox.style.display = 'block';
+    dBox.scrollIntoView({ behavior: "smooth" });
+}
+
+function closeDecision() {
+    document.getElementById('decisionBox').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function scrollToCart() {
+    document.getElementById('decisionBox').style.display = 'none';
+    document.getElementById('cart').scrollIntoView({ behavior: "smooth" });
+}
+
+function removeItem(i) {
+    cart.splice(i, 1);
+    updateCart();
+}
+
+function updateCart() {
+    const div = document.getElementById('cartItems');
+    div.innerHTML = '';
+    let subtotal = 0;
+    cart.forEach((i, idx) => {
+        subtotal += i.price;
+        // Ajuste aqui: Flexbox para manter texto à esquerda e ícone à direita
+        div.innerHTML += `
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:8px;">
+            <div style="flex:1; padding-right:10px;">
+                <strong>${i.name}</strong><br>
+                <small style="color:#666; display:block; margin-top:2px;">${i.flavors.join(', ')}</small>
+            </div>
+            <button onclick="removeItem(${idx})" style="background:none; border:none; color:#6a1b9a; font-size:20px; cursor:pointer; padding:0 5px;">🗑️</button>
+        </div>`;
+    });
+    const total = subtotal + (cart.length ? deliveryFee : 0);
+    div.innerHTML += `
+    <div style="margin-top:15px;">
+        <p style="margin:5px 0;">Subtotal: R$ ${subtotal.toFixed(2)}</p>
+        <p style="margin:5px 0;">Entrega: R$ ${cart.length ? deliveryFee.toFixed(2) : '0.00'}</p>
+        <p style="font-size:1.2em; color:#6a1b9a;"><strong>Total: R$ ${total.toFixed(2)}</strong></p>
+    </div>`;
+}
+
+function openCheckout() {
+    if(cart.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+    const check = document.getElementById('checkout');
+    check.style.display = 'block';
+    check.scrollIntoView({ behavior: "smooth" });
+}
+
+function checkCash(select) {
+    const box = document.getElementById('cashChangeBox');
+    box.style.display = (select.value === "Dinheiro") ? "block" : "none";
+}
+
+function sendWhats() {
+    const address = document.getElementById('address').value;
+    const payment = document.getElementById('payment').value;
+    const notes = document.getElementById('cartNotes').value;
+    const cashAmount = document.getElementById('cashAmount').value;
+
+    if(!address) {
+        alert("Por favor, informe o endereço.");
+        return;
+    }
+
+    let msg = "🍦 *Pedido Shekinah* 🍦%0A%0A";
+    let subtotal = 0;
+    cart.forEach(i => {
+        subtotal += i.price;
+        msg += `• ${i.name} (${i.flavors.join(', ')}) - R$ ${i.price.toFixed(2)}%0A`;
+    });
+    const total = subtotal + deliveryFee;
+    
+    if(notes) msg += `%0A📝 *Observação:* ${notes}%0A`;
+
+    msg += `%0A*Subtotal:* R$ ${subtotal.toFixed(2)}`;
+    msg += `%0A*Entrega:* R$ ${deliveryFee.toFixed(2)}`;
+    msg += `%0A*Total:* R$ ${total.toFixed(2)}%0A`;
+    msg += `%0A📍 *Endereço:* ${address}`;
+    msg += `%0A💳 *Pagamento:* ${payment}`;
+    
+    if(payment === "Dinheiro" && cashAmount) {
+        msg += `%0A💵 *Troco para:* R$ ${parseFloat(cashAmount).toFixed(2)}`;
+        msg += `%0A💰 *Valor do Troco:* R$ ${(parseFloat(cashAmount) - total).toFixed(2)}`;
+    }
+    
+    window.open("https://wa.me/5514991796846?text=" + msg, "_blank");
+}
+</script>
+
+</body>
+</html>
